@@ -9,12 +9,13 @@ _start:
 mov r8,[rsp]
 cmp r8,3
 jne exit
-mov r8,[rsp + 18] // argv[1]
-mov r9,r8 + 8
+mov  r8,[rsp + 16]
+mov  r9,[rsp + 24]
+mov r10,0
 
-cmp [r9],0
-jg 
-
+loop:
+cmp [r9],r10
+jg print_char
 
 mov rax,60
 xor rdi,rdi
@@ -25,9 +26,9 @@ mov rax,1
 mov rdi,1
 mov rsi,[r8]
 mov rdx,1
-inc r9
+inc r10
 syscall
-ret
+call loop
 
 exit:
 mov rax,1
